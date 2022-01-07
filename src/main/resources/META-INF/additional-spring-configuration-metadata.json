@@ -1,0 +1,47 @@
+{"properties": [
+  {
+    "name": "datasource.url",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.url'"
+  },
+  {
+    "name": "datasource.driver-class-name",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.driver-class-name'"
+  },
+  {
+    "name": "datasource.password",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.password'"
+  },
+  {
+    "name": "datasource.username",
+    "type": "java.lang.String",
+    "description": "A description for 'datasource.username'"
+  },
+  {
+    "name": "spring.devtools.livereload.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.devtools.livereload.enabled'"
+  },
+  {
+    "name": "spring.devtools.restart.log-condition-evaluation-delta",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.devtools.restart.log-condition-evaluation-delta'"
+  },
+  {
+    "name": "server.logging.config",
+    "type": "java.lang.String",
+    "description": "A description for 'server.logging.config'"
+  },
+  {
+    "name": "server.mybatis.type-aliases-package",
+    "type": "java.lang.String",
+    "description": "A description for 'server.mybatis.type-aliases-package'"
+  },
+  {
+    "name": "server.mybatis.mapper-locations",
+    "type": "java.lang.String",
+    "description": "A description for 'server.mybatis.mapper-locations'"
+  }
+]}
