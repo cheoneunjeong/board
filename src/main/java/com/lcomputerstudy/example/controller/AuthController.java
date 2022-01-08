@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lcomputerstudy.example.config.JwtUtils;
 import com.lcomputerstudy.example.domain.User;
+import com.lcomputerstudy.example.service.UserService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
