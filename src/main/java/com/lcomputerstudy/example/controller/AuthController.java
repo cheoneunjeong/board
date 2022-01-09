@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lcomputerstudy.example.config.JwtUtils;
 import com.lcomputerstudy.example.domain.User;
+import com.lcomputerstudy.example.request.JoinRequest;
+import com.lcomputerstudy.example.request.LoginRequest;
+import com.lcomputerstudy.example.response.JwtResponse;
 import com.lcomputerstudy.example.service.UserService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -77,7 +80,7 @@ public class AuthController {
 		User user = new User();
 		
 		user.setUsername(joinRequest.getUsername());
-		user.setName(joinRequest.getName);
+		user.setName(joinRequest.getName());
 		user.setPassword(encodedPassword);
 		user.setPhone(joinRequest.getPhone());
 		user.setAccountNonExpired(true);
