@@ -3,12 +3,14 @@
 	프론트단에서 서버로 요청할때 쓰이는 uri에 규칙을 준수해서 쓴거?
 	mapper 1+1쓰는이유
 	입력받는값들을 다 클래스로 만들어놔야하는지
+	왜 새로고침메서드는 userinfo로 되돌리는지?? user말고
 
 
 *서치해볼거
 	vue.config.js
 	logger, logback-spring.xml
 	securty강의
+	serialVersionUID
 
 
 restful?

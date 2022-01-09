@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.lcomputerstudy.example.domain.User;
+import com.lcomputerstudy.example.domain.UserInfo;
 
 public interface UserService extends UserDetailsService {
 
@@ -16,5 +17,7 @@ public interface UserService extends UserDetailsService {
 	Collection<GrantedAuthority> getAuthorities(String username);
 	
 	public void createAuthority(User user);
+
+	public UserInfo readUser_refresh(String username);
 	
 }
