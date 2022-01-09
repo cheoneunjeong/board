@@ -43,5 +43,10 @@
     "name": "server.mybatis.mapper-locations",
     "type": "java.lang.String",
     "description": "A description for 'server.mybatis.mapper-locations'"
+  },
+  {
+    "name": "server.tomcat.file-encoding",
+    "type": "java.lang.String",
+    "description": "A description for 'server.tomcat.file-encoding'"
   }
 ]}

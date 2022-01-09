@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lcomputerstudy.example.mapper.Usermapper">
+<mapper namespace="com.lcomputerstudy.example.mapper.UserMapper">
 
 	<select id="readAuthorities" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
-		SELECT		u_auth
-		FROM		userauth
-		WHERE		1=1
-		AND			u_id = #{username}
+		SELECT					u_auth
+		FROM						userauth
+		WHERE					1=1
+		AND							u_id = #{username}	
 	</select>
 	
 	<select id="readUser" parameterType="String" resultType="User">
@@ -35,7 +35,7 @@
 			u_isAccountNonExpired,
 			u_isAccountnonLocked,
 			u_isCredentialNonExpired,
-			u_isEnable
+			u_isEnabled
 		) VALUES (
 			#{username},
 			#{password},
