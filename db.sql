@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS `answer` (
 ) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.answer:~27 rows (대략적) 내보내기
-DELETE FROM `answer`;
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
 INSERT INTO `answer` (`a`, `q_num`, `a_num`) VALUES
 	('객1', 61, 67),
@@ -74,7 +73,6 @@ CREATE TABLE IF NOT EXISTS `board` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.board:~0 rows (대략적) 내보내기
-DELETE FROM `board`;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
 INSERT INTO `board` (`b_idx`, `b_title`, `b_content`, `b_date`, `b_writer`, `u_idx`) VALUES
 	(1, '제목', '내용입니다.', '2021-11-09', '작성자', 1);
@@ -98,7 +96,6 @@ CREATE TABLE IF NOT EXISTS `boardlist` (
 ) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 -- 테이블 데이터 jung.boardlist:~9 rows (대략적) 내보내기
-DELETE FROM `boardlist`;
 /*!40000 ALTER TABLE `boardlist` DISABLE KEYS */;
 INSERT INTO `boardlist` (`b_id`, `b_title`, `b_content`, `b_writer`, `b_datetime`, `b_hit`, `groups`, `orders`, `depth`, `fileName`) VALUES
 	(66, 'y', 'tu', 'c', '2021-12-14 09:54:37', 1, 66, 1, 0, NULL),
@@ -120,7 +117,6 @@ CREATE TABLE IF NOT EXISTS `lc_auth` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.lc_auth:~7 rows (대략적) 내보내기
-DELETE FROM `lc_auth`;
 /*!40000 ALTER TABLE `lc_auth` DISABLE KEYS */;
 INSERT INTO `lc_auth` (`u_id`, `u_auth`) VALUES
 	('abc', 'ROLE_USER'),
@@ -150,7 +146,6 @@ CREATE TABLE IF NOT EXISTS `lc_board` (
 ) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.lc_board:~9 rows (대략적) 내보내기
-DELETE FROM `lc_board`;
 /*!40000 ALTER TABLE `lc_board` DISABLE KEYS */;
 INSERT INTO `lc_board` (`b_id`, `b_title`, `b_content`, `b_writer`, `b_datetime`, `b_hit`, `groups`, `orders`, `depth`, `fileName`) VALUES
 	(66, 'y', 'tu', 'c', '2021-12-14 09:54:37', 1, 66, 1, 0, NULL),
@@ -182,7 +177,6 @@ CREATE TABLE IF NOT EXISTS `lc_reply` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.lc_reply:~6 rows (대략적) 내보내기
-DELETE FROM `lc_reply`;
 /*!40000 ALTER TABLE `lc_reply` DISABLE KEYS */;
 INSERT INTO `lc_reply` (`bId`, `content`, `writer`, `datetime`, `groups`, `orders`, `depth`, `r_num`) VALUES
 	(97, '1', 'c', '2021-12-14 22:53:06', 1, 1, 0, 1),
@@ -203,7 +197,6 @@ CREATE TABLE IF NOT EXISTS `lc_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.lc_user:~3 rows (대략적) 내보내기
-DELETE FROM `lc_user`;
 /*!40000 ALTER TABLE `lc_user` DISABLE KEYS */;
 INSERT INTO `lc_user` (`u_id`, `u_password`, `u_name`, `u_age`, `u_datetime`) VALUES
 	('aaa', 'aaa', 'aa', 10, '2021-12-01 00:00:00'),
@@ -226,7 +219,6 @@ CREATE TABLE IF NOT EXISTS `lc_user1` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.lc_user1:~6 rows (대략적) 내보내기
-DELETE FROM `lc_user1`;
 /*!40000 ALTER TABLE `lc_user1` DISABLE KEYS */;
 INSERT INTO `lc_user1` (`u_id`, `u_password`, `u_name`, `u_datetime`, `u_isAccountNonExpired`, `u_isAccountNonLocked`, `u_isCredentialNonExpired`, `u_isEnabled`, `u_auth`) VALUES
 	('abc', '$2a$10$08XR0uPaiUX.YWh9pxGu8.suYdnnp/m2XsxPj0dxi7mbCRi8ej1Vq', 'abc', '2021-12-06 09:28:58', 1, 1, 1, 1, 0),
@@ -250,7 +242,6 @@ CREATE TABLE IF NOT EXISTS `question` (
 ) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.question:~11 rows (대략적) 내보내기
-DELETE FROM `question`;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
 INSERT INTO `question` (`s_num`, `q_num`, `t`, `q`, `filename`) VALUES
 	(57, 59, '1', '단답질문', NULL),
@@ -284,7 +275,6 @@ CREATE TABLE IF NOT EXISTS `sanswer` (
 ) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.sanswer:~39 rows (대략적) 내보내기
-DELETE FROM `sanswer`;
 /*!40000 ALTER TABLE `sanswer` DISABLE KEYS */;
 INSERT INTO `sanswer` (`ans_num`, `sub_num`, `q_num`, `a`, `t`, `s_num`) VALUES
 	(100, 33, 59, '11', '1', 57),
@@ -344,7 +334,6 @@ CREATE TABLE IF NOT EXISTS `spring_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.spring_session:~0 rows (대략적) 내보내기
-DELETE FROM `spring_session`;
 /*!40000 ALTER TABLE `spring_session` DISABLE KEYS */;
 /*!40000 ALTER TABLE `spring_session` ENABLE KEYS */;
 
@@ -358,7 +347,6 @@ CREATE TABLE IF NOT EXISTS `spring_session_attributes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.spring_session_attributes:~0 rows (대략적) 내보내기
-DELETE FROM `spring_session_attributes`;
 /*!40000 ALTER TABLE `spring_session_attributes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `spring_session_attributes` ENABLE KEYS */;
 
@@ -376,7 +364,6 @@ CREATE TABLE IF NOT EXISTS `submission` (
 ) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.submission:~7 rows (대략적) 내보내기
-DELETE FROM `submission`;
 /*!40000 ALTER TABLE `submission` DISABLE KEYS */;
 INSERT INTO `submission` (`s_num`, `title`, `disc`, `writer`, `datetime`, `sub_num`) VALUES
 	(57, '제목', '설명', 'c', '2021-12-29 02:07:22', 33),
@@ -402,7 +389,6 @@ CREATE TABLE IF NOT EXISTS `survey` (
 ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.survey:~3 rows (대략적) 내보내기
-DELETE FROM `survey`;
 /*!40000 ALTER TABLE `survey` DISABLE KEYS */;
 INSERT INTO `survey` (`s_num`, `title`, `disc`, `writer`, `datetime`, `hit`) VALUES
 	(57, '제목', '설명', 'c', '2021-12-28 17:55:08', 0),
@@ -428,7 +414,6 @@ CREATE TABLE IF NOT EXISTS `test` (
 ) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.test:~26 rows (대략적) 내보내기
-DELETE FROM `test`;
 /*!40000 ALTER TABLE `test` DISABLE KEYS */;
 INSERT INTO `test` (`b_idx`, `b_title`, `b_content`, `b_date`, `u_idx`, `b_hit`, `groups`, `orders`, `depth`, `b_file`) VALUES
 	(99, '1', 'l', '2021-11-19 09:59:04', 11, 3, 99, 1, 0, NULL),
@@ -477,7 +462,6 @@ CREATE TABLE IF NOT EXISTS `test_reply` (
 ) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.test_reply:~0 rows (대략적) 내보내기
-DELETE FROM `test_reply`;
 /*!40000 ALTER TABLE `test_reply` DISABLE KEYS */;
 /*!40000 ALTER TABLE `test_reply` ENABLE KEYS */;
 
@@ -495,7 +479,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
 
 -- 테이블 데이터 jung.user:~19 rows (대략적) 내보내기
-DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`u_idx`, `u_id`, `u_pw`, `u_name`, `u_tel`, `u_age`, `manager`, `u_datetime`) VALUES
 	(1, 'abc', '1234', 'NAME1', '010-0000-0000', '50', 1, '0000-00-00 00:00:00'),
@@ -526,21 +509,13 @@ CREATE TABLE IF NOT EXISTS `userauth` (
   PRIMARY KEY (`u_id`,`u_auth`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- 테이블 데이터 jung.userauth:~10 rows (대략적) 내보내기
-DELETE FROM `userauth`;
+-- 테이블 데이터 jung.userauth:~4 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `userauth` DISABLE KEYS */;
 INSERT INTO `userauth` (`u_id`, `u_auth`) VALUES
 	('aa', 'ROLE_USER'),
-	('aaaa', 'ROLE_USER'),
-	('abc', 'ROLE_USER'),
-	('c', 'ROLE_ADMIN'),
-	('c', 'ROLE_USER'),
-	('f', 'ROLE_USER'),
-	('test', 'ROLE_USER'),
-	('tt', 'ROLE_USER'),
-	('zaza', 'ROLE_ADMIN'),
-	('zaza', 'ROLE_USER'),
-	('zzz', 'ROLE_USER');
+	('asd', 'ROLE_USER'),
+	('dd', 'ROLE_USER'),
+	('zz', 'ROLE_USER');
 /*!40000 ALTER TABLE `userauth` ENABLE KEYS */;
 
 -- 테이블 jung.userlist 구조 내보내기
@@ -558,11 +533,13 @@ CREATE TABLE IF NOT EXISTS `userlist` (
   PRIMARY KEY (`u_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
--- 테이블 데이터 jung.userlist:~0 rows (대략적) 내보내기
-DELETE FROM `userlist`;
+-- 테이블 데이터 jung.userlist:~4 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
 INSERT INTO `userlist` (`u_id`, `u_password`, `u_name`, `u_phone`, `u_datetime`, `u_isAccountNonExpired`, `u_isAccountNonLocked`, `u_isCredentialNonExpired`, `u_isEnabled`, `u_auth`) VALUES
-	('aa', '$2a$10$E9uJmTb4UXt.Kas5DI/5z.uJboHYlOENfXdhyjesRNCfU2dwtRq2q', 'aa', 1111111111, '2022-01-09 21:05:48', 1, 1, 1, 1, 0);
+	('aa', '$2a$10$EDtcH3Ptp1BqdPxSU5TKpe7W3v/rf9NieuJtWr6g.MnCk3nrSLr.G', 'aa', 123123, '2022-01-10 18:23:31', 1, 1, 1, 1, 0),
+	('asd', '$2a$10$WegzPvLl9oC2infDhUVwSuVcYFvwNoi3kHQXQ4AXJgQZKhg8l33XS', 'asd', 666666, '2022-01-11 00:35:46', 1, 1, 1, 1, 0),
+	('dd', '$2a$10$RK2KuyFh.117wW4dxpRTd.mbgyO8E.7oej8WzHsWNW4XJsDrwBJEq', 'dd', 44333222, '2022-01-11 00:35:34', 1, 1, 1, 1, 0),
+	('zz', '$2a$10$53ziV3dMpSjlXdVjtYKA..8z/MVTaQVAsyT95xfNFYVz1v8XxKvpO', 'zz', 222333, '2022-01-11 00:35:26', 1, 1, 1, 1, 0);
 /*!40000 ALTER TABLE `userlist` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

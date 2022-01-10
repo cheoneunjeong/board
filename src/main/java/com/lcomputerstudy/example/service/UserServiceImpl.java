@@ -59,4 +59,10 @@ public class UserServiceImpl implements UserService {
 		return usermapper.readUser_refresh(username);
 	}
 
+	@Override
+	public List<UserInfo> read_user_list() {
+		// TODO Auto-generated method stub
+		return usermapper.read_user_list();
+	}
+
 }

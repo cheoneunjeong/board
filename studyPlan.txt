@@ -1,3 +1,10 @@
+**진도 
+	vue에 addrole action추가 - 근데 서버로 안넘어가는거같음
+		+User.vue에 payload보낸거 맞는지
+	server에는 testcontroller-addrole 추가(admin권한주기)
+	writerpost(actions추가) axios 안됨 json문제? / 서버에는 insertboard관련 내용 추가
+
+
 *질문할거List
 	restful api라는게
 	프론트단에서 서버로 요청할때 쓰이는 uri에 규칙을 준수해서 쓴거?

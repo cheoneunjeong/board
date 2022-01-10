@@ -27,11 +27,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lcomputerstudy.example.config.JwtUtils;
+import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.domain.UserInfo;
 import com.lcomputerstudy.example.request.JoinRequest;
 import com.lcomputerstudy.example.request.LoginRequest;
+import com.lcomputerstudy.example.request.PostRequest;
 import com.lcomputerstudy.example.response.JwtResponse;
+import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.UserService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -52,6 +55,9 @@ public class AuthController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	BoardService boardService;
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest) {
@@ -113,6 +119,29 @@ public class AuthController {
 		UserInfo user = userService.readUser_refresh(username);
 		
 		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
+	@PostMapping("/board")
+	public ResponseEntity<?> writePost(HttpServletRequest request, @Validated @RequestBody PostRequest post ) {
+		
+		String token = new String();
+		token = request.getHeader("Authorization");
+		
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		UserInfo user = userService.readUser_refresh(username);
+		
+		Board board = new Board();
+		board.setTitle(post.getTitle());
+		board.setContent(post.getContent());
+		board.setWriter(user.getUsername());
+		
+		boardService.insertBoard(board);
+		
+		return new ResponseEntity<>("success", HttpStatus.OK);
+		
 	}
 	
 
