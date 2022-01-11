@@ -14,4 +14,21 @@
 			#{writer}
 		)
 	</insert>
+	
+	<select id="getBoardList" resultType="Board">
+		SELECT		*
+		FROM			vue_board
+	</select>
+	
+	<select id="getBoardDetail" resultType="Board" parameterType="Integer">
+		SELECT		*
+		FROM			vue_board
+		WHERE		b_id = #{b_id}
+	</select>
+	
+	<update id="addHit" parameterType="Integer">
+		UPDATE 		vue_board 
+		SET 		hit = hit+1 
+		WHERE 		b_id=#{b_id}
+	</update>
 </mapper>
