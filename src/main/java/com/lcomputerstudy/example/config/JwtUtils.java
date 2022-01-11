@@ -25,46 +25,48 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class JwtUtils {
+
+	private static final String jwtSecret = "lcomputerstudyexample";
 	
-	private static final String jwtSecret = "lcomputerstudy";
-	
-	private static final int jwtExpirationMs= 864000;
+	private static final int jwtExpirationMs = 864000;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+
 	public String generateJwtToken(Authentication authentication) {
-		
+
 		User user = (User) authentication.getPrincipal();
-		
+
 		return Jwts.builder()
 				.setSubject((user.getUsername()))
 				.setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret)
 				.compact();
-
 	}
 	
+
 	public String getUserNameFromJwtToken(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
 	}
 	
-	private static Claims getClaimsFormToken(String token) {
-		return (Claims) Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(jwtSecret))
-				.parseClaimsJws(token).getBody();
-	}
+	 private static Claims getClaimsFormToken(String token) {
+        return (Claims) Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(jwtSecret))
+        		.parseClaimsJws(token).getBody();
+    }
+	 
+	 public static String getUserEmailFromToken(String token) {
+	        Claims claims = getClaimsFormToken(token);
+	        Map<String, Object> map = new HashMap<>(claims);
+	        String username = (String) map.get("sub");
+	        
+	        return username;
+	    }
 	
-	public static String getUserEmailFromToken(String token) {
-		Claims claims = getClaimsFormToken(token);
-		Map<String, Object> map = new HashMap<>(claims);
-		String username = (String) map.get("sub");
-		
-		return username;
-	}
-	
+
 	public boolean validateJwtToken(String authToken) {
 		try {
-			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJwt(authToken);
+			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
 			return true;
 		} catch (SignatureException e) {
 			logger.error("Invalid JWT signature: {}", e.getMessage());
@@ -77,7 +79,9 @@ public class JwtUtils {
 		} catch (IllegalArgumentException e) {
 			logger.error("JWT claims string is empty: {}", e.getMessage());
 		}
-		
+
 		return false;
 	}
+	
+	
 }

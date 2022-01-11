@@ -69,6 +69,7 @@ public class AuthController {
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
+		System.out.println(jwt);
 		
 		User user = (User) authentication.getPrincipal();
 		logger.info("dddd"+ authentication.getPrincipal());
@@ -115,6 +116,7 @@ public class AuthController {
 		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
 			token = token.substring(7, token.length());
 		}
+		System.out.println("새로고침시 넘어온 토큰="+token);
 		String username = jwtUtils.getUserEmailFromToken(token);
 		UserInfo user = userService.readUser_refresh(username);
 		
@@ -124,6 +126,7 @@ public class AuthController {
 	@PostMapping("/board")
 	public ResponseEntity<?> writePost(HttpServletRequest request, @Validated @RequestBody PostRequest post ) {
 		
+		System.out.println("post="+post);
 		String token = new String();
 		token = request.getHeader("Authorization");
 		
@@ -144,5 +147,6 @@ public class AuthController {
 		
 	}
 	
-
 }
+
+

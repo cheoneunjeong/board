@@ -22,5 +22,5 @@ public interface UserMapper {
 	public UserInfo readUser_refresh(String username);
 
 	public List<UserInfo> read_user_list();
-	
+
 }

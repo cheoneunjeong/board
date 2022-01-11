@@ -65,4 +65,5 @@ public class UserServiceImpl implements UserService {
 		return usermapper.read_user_list();
 	}
 
+
 }

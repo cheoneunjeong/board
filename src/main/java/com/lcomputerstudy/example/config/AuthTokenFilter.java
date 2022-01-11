@@ -38,6 +38,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		try {
 			String jwt = parseJwt(request);
+			System.out.println("필터시 토큰="+jwt);
 			
 			if(jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				
@@ -69,7 +70,5 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		
 		return null;
 	}
-	
-
 
 }

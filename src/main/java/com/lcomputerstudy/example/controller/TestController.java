@@ -40,18 +40,16 @@ public class TestController {
 	UserService userService;
 
 	@PostMapping("/addRole")
-	public ResponseEntity<?> addRoleAdmin(@Validated @RequestBody UserInfo userinfo) {
+	public ResponseEntity<?> addRoleAdmin(@Validated @RequestBody UserInfo user) {
 		
-		System.out.println("서버시작 username: "+userinfo.getName());
-		User user = userService.readUser(userinfo.getUsername());
+		System.out.println("user: "+ user.getUsername());
+		User u = userService.readUser(user.getUsername());
 		
-		user.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
+		u.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
 		
-		userService.createUser(user);
-		
-		userService.createAuthority(user);
+		userService.createAuthority(u);
 		System.out.println("success");
 		
-		return new ResponseEntity<>("success", HttpStatus.OK);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 }

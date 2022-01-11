@@ -17,8 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.lcomputerstudy.example.service.UserService;
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+  prePostEnabled = true, 
+  securedEnabled = true, 
+  jsr250Enabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -58,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
 			.antMatchers("/api/admin/**").permitAll()
+//			.antMatchers("/api/test/**").permitAll()
 			
 			.anyRequest().authenticated();
 		

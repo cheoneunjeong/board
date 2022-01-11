@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
 	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO boardlist (
-			b_title,
-			b_content,
-			b_writer
+		INSERT INTO vue_board (
+			title,
+			content,
+			writer
 		) VALUES (
 			#{title},
 			#{content},
