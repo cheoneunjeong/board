@@ -118,11 +118,18 @@ public class PublicController {
 		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
 			token = token.substring(7, token.length());
 		}
-		System.out.println("새로고침시 넘어온 토큰="+token);
 		String username = jwtUtils.getUserEmailFromToken(token);
 		UserInfo user = userService.readUser_refresh(username);
 		
-		return new ResponseEntity<>(user, HttpStatus.OK);
+		List<String> roles= userService.getAuthorities(username).stream()
+				.map(item -> item.getAuthority())
+				.collect(Collectors.toList());
+		System.out.println("리스트: "+roles.toString());
+
+		return ResponseEntity.ok(new JwtResponse(request.getHeader("Authorization"), 
+															user.getUsername(),
+															user.getName(),
+															roles));
 	}
 	
 	@GetMapping("/boardlist")

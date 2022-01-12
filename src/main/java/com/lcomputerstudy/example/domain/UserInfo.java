@@ -1,6 +1,7 @@
 package com.lcomputerstudy.example.domain;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -13,9 +14,15 @@ public class UserInfo {
 	private String name;
 	private String phone;
 	private Collection<? extends GrantedAuthority> authorities;
-	private String auth;
+	private List<String> roles;
 	
 	
+	public List<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -46,20 +53,11 @@ public class UserInfo {
 	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
 		this.authorities = authorities;
 	}
-	public String getAuth() {
-		return auth;
-	}
-	public void setAuth(String auth) {
-		this.authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(auth);
-	}
+
 	@Override
 	public String toString() {
 		return "UserInfo [username=" + username + ", password=" + password + ", name=" + name + ", phone=" + phone
-				+ ", authorities=" + authorities + ", auth=" + auth + "]";
+				+ ", authorities=" + authorities + ", roles=" + "]";
 	}
-	
-	
-	
-	
-	
+
 }

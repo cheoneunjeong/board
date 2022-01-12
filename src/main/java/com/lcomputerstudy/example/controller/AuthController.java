@@ -63,27 +63,43 @@ public class AuthController {
 	
 	
 	@PostMapping("/addRole")
-	public ResponseEntity<?> addRoleAdmin(@Validated @RequestBody UserInfo user) {
+	public ResponseEntity<?> addRoleAdmin(@Validated @RequestBody UserInfo user_) {
 
-		User u = userService.readUser(user.getUsername());
+		User u = userService.readUser(user_.getUsername());
 		
 		u.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
-		
 		userService.createAuthority(u);
-
-		return new ResponseEntity<>(u, HttpStatus.OK);
+		
+		List<String> roles= userService.getAuthorities(u.getUsername()).stream()
+				.map(item -> item.getAuthority())
+				.collect(Collectors.toList());
+		
+		UserInfo user = new UserInfo();
+		user.setUsername(u.getUsername());
+		user.setName(u.getName());
+		user.setRoles(roles);
+		
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/role-admin")
-	public ResponseEntity<?> deleteRoleAdmin(@Validated UserInfo user) {
+	public ResponseEntity<?> deleteRoleAdmin(@Validated UserInfo user_) {
 
-		System.out.println("아이디="+user.getUsername());
-		User u = userService.readUser(user.getUsername());
+		User u = userService.readUser(user_.getUsername());
 		
 		u.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER"));
 		userService.deleteAuth(u.getUsername());
 		
-		return new ResponseEntity<>(u, HttpStatus.OK);
+		List<String> roles= userService.getAuthorities(u.getUsername()).stream()
+				.map(item -> item.getAuthority())
+				.collect(Collectors.toList());
+		
+		UserInfo user = new UserInfo();
+		user.setUsername(u.getUsername());
+		user.setName(u.getName());
+		user.setRoles(roles);
+		
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PostMapping("/board")
