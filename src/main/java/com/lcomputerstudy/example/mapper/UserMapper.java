@@ -23,4 +23,6 @@ public interface UserMapper {
 
 	public List<UserInfo> read_user_list();
 
+	public void deleteAuth(String username);
+
 }

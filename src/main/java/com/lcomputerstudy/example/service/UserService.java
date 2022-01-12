@@ -22,5 +22,7 @@ public interface UserService extends UserDetailsService {
 	public UserInfo readUser_refresh(String username);
 
 	public List<UserInfo> read_user_list();
+
+	public void deleteAuth(String username);
 	
 }

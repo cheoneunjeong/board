@@ -65,5 +65,11 @@ public class UserServiceImpl implements UserService {
 		return usermapper.read_user_list();
 	}
 
+	@Override
+	public void deleteAuth(String username) {
+		usermapper.deleteAuth(username);
+		
+	}
+
 
 }

@@ -89,4 +89,10 @@
 						GROUP BY		ta.u_id
 					) tb ON ta.u_id = tb.u_id
 	</select>
+	
+	<delete id="deleteAuth" parameterType="String">
+ 		DELETE 
+ 		FROM 		userauth 
+ 		WHERE 		u_auth = 'ROLE_ADMIN' &amp;&amp; u_id = #{id}
+	</delete>
 </mapper>

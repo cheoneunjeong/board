@@ -127,19 +127,17 @@ public class PublicController {
 	
 	@GetMapping("/boardlist")
 	public ResponseEntity<?> getBoardList(HttpServletRequest request) {
-		logger.info(request.toString());
+
 		List<Board> list = boardService.getBoardList();
-		logger.info(list.toString());
 		
 			return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("/boardDetail")
+	@GetMapping("/board")
 	public ResponseEntity<?> getBoardDetail(@Validated PostRequest post) {
 
 		boardService.addHit(post.getB_id());
 		Board board = boardService.getBoardDetail(post.getB_id());
-		System.out.println(board.getTitle());
 		
 			return new ResponseEntity<>(board, HttpStatus.OK);
 	}

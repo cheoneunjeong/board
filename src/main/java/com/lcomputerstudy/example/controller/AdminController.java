@@ -56,9 +56,8 @@ public class AdminController {
 		@GetMapping("/adminPage")
 		@PreAuthorize("hasRole('ROLE_ADMIN')")
 		public ResponseEntity<?> AccessAdmin(HttpServletRequest request) {
-			logger.info(request.toString());
+
 			List<UserInfo> userList = userService.read_user_list();
-			logger.info(userList.toString());
 			
 				return new ResponseEntity<>(userList, HttpStatus.OK);
 		}

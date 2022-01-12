@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lcomputerstudy.example.domain.Board;
 import com.lcomputerstudy.example.mapper.BoardMapper;
+import com.lcomputerstudy.example.request.PostRequest;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -36,6 +37,18 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void addHit(int b_id) {
 		boardmapper.addHit(b_id);
+		
+	}
+
+	@Override
+	public void deletePost(int b_id) {
+		boardmapper.deletePost(b_id);
+		
+	}
+
+	@Override
+	public void editPost(Board setBoard) {
+		boardmapper.editPost(setBoard);
 		
 	}
 

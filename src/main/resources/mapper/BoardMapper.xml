@@ -31,4 +31,18 @@
 		SET 		hit = hit+1 
 		WHERE 		b_id=#{b_id}
 	</update>
+	
+	<delete id="deletePost" parameterType="Integer">
+		DELETE 
+		FROM 		vue_board 
+		WHERE 		b_id = #{b_id}
+	</delete>
+	
+ 	<update id="editPost" parameterType="Board">
+		UPDATE 		vue_board 
+		SET 		title = #{title},
+					content = #{content}
+					
+		WHERE 		b_id= #{b_id}
+	</update> 
 </mapper>

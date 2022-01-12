@@ -20,8 +20,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,22 +64,31 @@ public class AuthController {
 	
 	@PostMapping("/addRole")
 	public ResponseEntity<?> addRoleAdmin(@Validated @RequestBody UserInfo user) {
-		
-		System.out.println("user: "+ user.getUsername());
+
 		User u = userService.readUser(user.getUsername());
 		
 		u.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
 		
 		userService.createAuthority(u);
-		System.out.println("success");
+
+		return new ResponseEntity<>(u, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/role-admin")
+	public ResponseEntity<?> deleteRoleAdmin(@Validated UserInfo user) {
+
+		System.out.println("아이디="+user.getUsername());
+		User u = userService.readUser(user.getUsername());
 		
-		return new ResponseEntity<>(user, HttpStatus.OK);
+		u.setAuthorities(AuthorityUtils.createAuthorityList("ROLE_USER"));
+		userService.deleteAuth(u.getUsername());
+		
+		return new ResponseEntity<>(u, HttpStatus.OK);
 	}
 	
 	@PostMapping("/board")
 	public ResponseEntity<?> writePost(HttpServletRequest request, @Validated @RequestBody PostRequest post ) {
 		
-		System.out.println("post="+post);
 		String token = new String();
 		token = request.getHeader("Authorization");
 		
@@ -98,6 +109,57 @@ public class AuthController {
 		
 	}
 	
+	@DeleteMapping("/board")
+	public ResponseEntity<?> deleteBoardView(HttpServletRequest request, @Validated PostRequest post) {
+		
+		String token= request.getHeader("Authorization");
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		UserInfo user = userService.readUser_refresh(username);
+		
+		Board board = boardService.getBoardDetail(post.getB_id());
+
+
+		if(board.getWriter().equals(user.getUsername()) || request.isUserInRole("ROLE_ADMIN") ) {
+			
+			boardService.deletePost(post.getB_id());
+			
+			return new ResponseEntity<>("success", HttpStatus.OK);
+			
+		}else 
+			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+		
+	}
+	
+	@PutMapping("/board")
+	public ResponseEntity<?> editPost(HttpServletRequest request, @Validated @RequestBody PostRequest post) {
+		
+		String token= request.getHeader("Authorization");
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		Board board = boardService.getBoardDetail(post.getB_id());
+		
+		if(board.getWriter().equals(username)) {
+		
+			Board setBoard = new Board();
+			setBoard.setTitle(post.getTitle());
+			setBoard.setContent(post.getContent());
+			setBoard.setB_id(post.getB_id());
+			
+			
+			boardService.editPost(setBoard);
+			
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		
+		} else
+		
+			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+		
+	}
 	
 }
 
