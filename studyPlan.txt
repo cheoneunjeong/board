@@ -1,17 +1,15 @@
 **진도 
-	vue에 addrole action추가 - 근데 서버로 안넘어가는거같음
-		+User.vue에 payload보낸거 맞는지
-	server에는 testcontroller-addrole 추가(admin권한주기)
-	writerpost(actions추가) axios 안됨 json문제? / 서버에는 insertboard관련 내용 추가
-
+	페이지네이션
+	답글기능
+	게시글순서 group order depth
+	댓글기능
+	대댓글 기능추가
+	댓글순서정렬
+	파일업로드?
 
 *질문할거List
-	restful api라는게
-	프론트단에서 서버로 요청할때 쓰이는 uri에 규칙을 준수해서 쓴거?
+       restful api라는게 프론트단에서 서버로 요청할때 쓰이는 uri에 규칙을 준수해서 쓴거?
 	mapper 1+1쓰는이유
-	입력받는값들을 다 클래스로 만들어놔야하는지
-	왜 새로고침메서드는 userinfo로 되돌리는지?? user말고
-
 
 *서치해볼거
 	vue.config.js
