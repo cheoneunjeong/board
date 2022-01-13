@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lcomputerstudy.example.config.JwtUtils;
 import com.lcomputerstudy.example.domain.Board;
+import com.lcomputerstudy.example.domain.Comment;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.domain.UserInfo;
 import com.lcomputerstudy.example.request.JoinRequest;
@@ -137,9 +138,9 @@ public class AuthController {
 		
 		Board board = boardService.getBoardDetail(post.getB_id());
 
-
 		if(board.getWriter().equals(user.getUsername()) || request.isUserInRole("ROLE_ADMIN") ) {
 			
+			boardService.deleteBoardComments(post.getB_id());
 			boardService.deletePost(post.getB_id());
 			
 			return new ResponseEntity<>("success", HttpStatus.OK);
@@ -200,6 +201,78 @@ public class AuthController {
 		boardService.insertReply(board);
 		
 		return new ResponseEntity<>("success", HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/comment")
+	public ResponseEntity<?> writeComment(HttpServletRequest request, @Validated @RequestBody Comment comment_ ) {
+		
+		String token = new String();
+		token = request.getHeader("Authorization");
+		
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		UserInfo user = userService.readUser_refresh(username);
+		
+		Comment comment = new Comment();
+		comment.setBid(comment_.getBid());
+		comment.setContent(comment_.getContent());
+		comment.setWriter(user.getUsername());
+		
+		
+		boardService.createComment(comment);
+		List<Comment> list = boardService.getCommentList(comment_.getBid());
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+		
+	}
+	
+	@DeleteMapping("/comment")
+	public ResponseEntity<?> deleteComment(HttpServletRequest request,@Validated Comment c_id ) {
+		
+		Comment c = boardService.getCommentDetail(c_id);
+		
+		String token= request.getHeader("Authorization");
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		
+		if(c.getWriter().equals(username) || request.isUserInRole("ROLE_ADMIN")) {
+			
+			boardService.deleteComment(c_id.getC_id());
+			List<Comment> list = boardService.getCommentList(c.getBid());
+			
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		} else 
+			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+	}
+	
+	@PostMapping("/reply-comment")
+	public ResponseEntity<?> addReComment(HttpServletRequest request, @Validated @RequestBody Comment comment) {
+		
+		String token = new String();
+		token = request.getHeader("Authorization");
+		
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		
+		Comment reComment = new Comment();
+		reComment.setBid(comment.getBid());
+		reComment.setContent(comment.getContent());
+		reComment.setWriter(username);
+		reComment.setGroups(comment.getGroups());
+		reComment.setOrders(comment.getOrders());
+		reComment.setDepth(comment.getDepth());
+		
+		boardService.insertReplyComment(reComment);
+		List<Comment> list = boardService.getCommentList(comment.getBid());
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
 		
 	}
 	

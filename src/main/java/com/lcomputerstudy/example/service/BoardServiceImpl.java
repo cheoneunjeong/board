@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lcomputerstudy.example.domain.Board;
+import com.lcomputerstudy.example.domain.Comment;
 import com.lcomputerstudy.example.mapper.BoardMapper;
 import com.lcomputerstudy.example.request.PostRequest;
 
@@ -58,6 +59,44 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		boardmapper.insertReply1(board);
 		boardmapper.insertReply2(board);
+	}
+
+	@Override
+	public List<Comment> getCommentList(int b_id) {
+		// TODO Auto-generated method stub
+		return boardmapper.getCommentList(b_id);
+	}
+
+	@Override
+	public void createComment(Comment comment) {
+		// TODO Auto-generated method stub
+		boardmapper.createComment1(comment);
+		boardmapper.createComment2(comment);
+	}
+
+	@Override
+	public void deleteComment(int c_id) {
+		// TODO Auto-generated method stub
+		boardmapper.deleteComment(c_id);
+	}
+
+	@Override
+	public Comment getCommentDetail(Comment c_id) {
+		// TODO Auto-generated method stub
+		return boardmapper.getCommentDetail(c_id);
+	}
+
+	@Override
+	public void insertReplyComment(Comment reComment) {
+		// TODO Auto-generated method stub
+		boardmapper.insertReplyComment1(reComment);
+		boardmapper.insertReplyComment2(reComment);
+	}
+
+	@Override
+	public void deleteBoardComments(int b_id) {
+		// TODO Auto-generated method stub
+		boardmapper.deleteBoardComments(b_id);
 	}
 
 }

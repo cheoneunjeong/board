@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lcomputerstudy.example.config.JwtUtils;
 import com.lcomputerstudy.example.domain.Board;
+import com.lcomputerstudy.example.domain.Comment;
 import com.lcomputerstudy.example.domain.User;
 import com.lcomputerstudy.example.domain.UserInfo;
 import com.lcomputerstudy.example.request.JoinRequest;
@@ -147,5 +148,13 @@ public class PublicController {
 		Board board = boardService.getBoardDetail(post.getB_id());
 		
 			return new ResponseEntity<>(board, HttpStatus.OK);
+	}
+	
+	@GetMapping("/comment")
+	public ResponseEntity<?> getCommentList(@Validated PostRequest post) {
+
+		List<Comment> comment = boardService.getCommentList(post.getB_id());
+		
+			return new ResponseEntity<>(comment, HttpStatus.OK);
 	}
 }

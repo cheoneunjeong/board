@@ -87,4 +87,82 @@
 					&amp;&amp; (not orders &lt; #{orders}+1) 
 					&amp;&amp; (groups = #{groups})
 	</update>
+	
+	<select id="getCommentList" parameterType="Integer" resultType="Comment">
+		SELECT * FROM
+						(select @rownum := @rownum-1 as rownum, (concat(repeat('-', depth), content))as con, 
+						ta.*
+		FROM 				
+						vue_comment ta, 
+					 (select @rownum := (select COUNT(*)+1 from vue_comment ta)) tb 
+		WHERE			ta.bid=#{b_id}
+		ORDER BY 
+						groups desc, orders asc)a
+	</select>
+	
+	<insert id="createComment1" parameterType="Comment">
+		INSERT INTO vue_comment (
+			bid,
+			content,
+			writer
+		) VALUES (
+			#{bid},
+			#{content},
+			#{writer}
+		)
+	</insert>
+	
+	<update id="createComment2" parameterType="Comment">
+  	 	UPDATE 			vue_comment
+   		SET
+      				 groups = LAST_INSERT_ID(),
+      				 orders = '1'
+
+   		WHERE		 c_id = last_insert_id()
+	</update>
+	
+	<delete id="deleteComment" parameterType="Integer">
+		DELETE 
+		FROM 		vue_comment 
+		WHERE 		c_id = #{c_id}
+	</delete>
+	
+	<select id="getCommentDetail" resultType="Comment" parameterType="Integer">
+		SELECT			*
+		FROM 			vue_comment 
+		WHERE			c_id=#{c_id}
+	</select>
+	
+	<insert id="insertReplyComment1" parameterType="Comment">  
+        INSERT INTO vue_comment (
+        		bid,
+        		content,
+        		writer,
+        		groups,
+        		orders,
+        		depth
+      ) VALUES (
+         #{bid},
+         #{content},
+         #{writer},
+         #{groups},
+         #{orders}+1,
+         #{depth}+1
+         )
+	</insert>
+	
+	<update id="insertReplyComment2" parameterType="Comment">
+  	 	UPDATE 				vue_comment 
+  	 	SET 				orders = orders+1 
+		WHERE 
+				 (not c_id =  LAST_INSERT_ID() )
+					&amp;&amp; (not orders &lt; #{orders}+1) 
+					&amp;&amp; (groups = #{groups})
+	</update>
+	
+	<delete id="deleteBoardComments" parameterType="Integer">
+		DELETE 
+		FROM 		vue_comment 
+		WHERE 		bid = #{b_id}
+	</delete>
 </mapper>
