@@ -18,7 +18,8 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void insertBoard(Board board) {
 		// TODO Auto-generated method stub
-		boardmapper.insertBoard(board);
+		boardmapper.insertBoard1(board);
+		boardmapper.insertBoard2(board);
 		
 	}
 
@@ -50,6 +51,13 @@ public class BoardServiceImpl implements BoardService {
 	public void editPost(Board setBoard) {
 		boardmapper.editPost(setBoard);
 		
+	}
+
+	@Override
+	public void insertReply(Board board) {
+		// TODO Auto-generated method stub
+		boardmapper.insertReply1(board);
+		boardmapper.insertReply2(board);
 	}
 
 }

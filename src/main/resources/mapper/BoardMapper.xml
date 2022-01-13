@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lcomputerstudy.example.mapper.BoardMapper">
-	<insert id="insertBoard" parameterType="Board">
+	<insert id="insertBoard1" parameterType="Board">
 		INSERT INTO vue_board (
 			title,
 			content,
@@ -15,9 +15,24 @@
 		)
 	</insert>
 	
+	<update id="insertBoard2" parameterType="Board">
+  	 	UPDATE 			vue_board
+   		SET
+      				 groups = LAST_INSERT_ID(),
+      				 orders = '1'
+
+   		WHERE		 b_id = last_insert_id()
+	</update>	
+	
 	<select id="getBoardList" resultType="Board">
-		SELECT		*
-		FROM			vue_board
+		SELECT * FROM
+						(select @rownum := @rownum-1 as rownum, (concat(repeat('-', depth), title))as con, 
+						ta.*
+		FROM 				
+						vue_board ta, 
+					 (select @rownum := (select COUNT(*)+1 from vue_board ta)) tb 
+		ORDER BY 
+						groups desc, orders asc)a
 	</select>
 	
 	<select id="getBoardDetail" resultType="Board" parameterType="Integer">
@@ -45,4 +60,31 @@
 					
 		WHERE 		b_id= #{b_id}
 	</update> 
+	
+	<insert id="insertReply1" parameterType="Board">  
+        INSERT INTO vue_board (
+        		title,
+        		content,
+        		writer,
+        		groups,
+        		orders,
+        		depth
+      ) VALUES (
+         #{title},
+         #{content},
+         #{writer},
+         #{groups},
+         #{orders}+1,
+         #{depth}+1
+         )
+	</insert>
+	
+	<update id="insertReply2" parameterType="Board">
+  	 	UPDATE 				vue_board 
+  	 	SET 				orders = orders+1 
+		WHERE 
+				 (not b_id =  LAST_INSERT_ID() )
+					&amp;&amp; (not orders &lt; #{orders}+1) 
+					&amp;&amp; (groups = #{groups})
+	</update>
 </mapper>

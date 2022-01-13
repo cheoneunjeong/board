@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 호스트:                          127.0.0.1
--- 서버 버전:                        10.6.4-MariaDB - mariadb.org binary distribution
+-- 서버 버전:                        10.5.8-MariaDB - mariadb.org binary distribution
 -- 서버 OS:                        Win64
--- HeidiSQL 버전:                  11.3.0.6295
+-- HeidiSQL 버전:                  11.0.0.5919
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -10,7 +10,6 @@
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
 -- jung 데이터베이스 구조 내보내기
@@ -25,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
   PRIMARY KEY (`a_num`),
   KEY `q_num` (`q_num`),
   CONSTRAINT `answer_ibfk_1` FOREIGN KEY (`q_num`) REFERENCES `question` (`q_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.answer:~27 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `answer` DISABLE KEYS */;
@@ -70,9 +69,9 @@ CREATE TABLE IF NOT EXISTS `board` (
   PRIMARY KEY (`b_idx`),
   KEY `u_idx` (`u_idx`),
   CONSTRAINT `board_ibfk_1` FOREIGN KEY (`u_idx`) REFERENCES `user` (`u_idx`) ON DELETE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 jung.board:~1 rows (대략적) 내보내기
+-- 테이블 데이터 jung.board:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
 INSERT INTO `board` (`b_idx`, `b_title`, `b_content`, `b_date`, `b_writer`, `u_idx`) VALUES
 	(1, '제목', '내용입니다.', '2021-11-09', '작성자', 1);
@@ -93,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `boardlist` (
   PRIMARY KEY (`b_id`) USING BTREE,
   KEY `b_writer` (`b_writer`) USING BTREE,
   CONSTRAINT `boardlist_ibfk_1` FOREIGN KEY (`b_writer`) REFERENCES `lc_user1` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- 테이블 데이터 jung.boardlist:~9 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `boardlist` DISABLE KEYS */;
@@ -114,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `lc_auth` (
   `u_id` varchar(50) NOT NULL,
   `u_auth` varchar(50) NOT NULL,
   PRIMARY KEY (`u_id`,`u_auth`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.lc_auth:~7 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `lc_auth` DISABLE KEYS */;
@@ -143,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `lc_board` (
   PRIMARY KEY (`b_id`),
   KEY `b_writer` (`b_writer`),
   CONSTRAINT `lc_board_ibfk_1` FOREIGN KEY (`b_writer`) REFERENCES `lc_user1` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.lc_board:~9 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `lc_board` DISABLE KEYS */;
@@ -174,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `lc_reply` (
   KEY `bId` (`bId`),
   CONSTRAINT `lc_reply_ibfk_1` FOREIGN KEY (`bId`) REFERENCES `lc_board` (`b_id`),
   CONSTRAINT `lc_reply_ibfk_2` FOREIGN KEY (`writer`) REFERENCES `lc_user1` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.lc_reply:~6 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `lc_reply` DISABLE KEYS */;
@@ -194,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `lc_user` (
   `u_name` varchar(50) DEFAULT NULL,
   `u_age` int(11) DEFAULT NULL,
   `u_datetime` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.lc_user:~3 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `lc_user` DISABLE KEYS */;
@@ -216,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `lc_user1` (
   `u_isEnabled` tinyint(10) DEFAULT NULL,
   `u_auth` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`u_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.lc_user1:~6 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `lc_user1` DISABLE KEYS */;
@@ -239,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `question` (
   PRIMARY KEY (`q_num`) USING BTREE,
   KEY `s_num` (`s_num`),
   CONSTRAINT `question_ibfk_1` FOREIGN KEY (`s_num`) REFERENCES `survey` (`s_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.question:~11 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
@@ -272,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `sanswer` (
   CONSTRAINT `sanswer_ibfk_1` FOREIGN KEY (`sub_num`) REFERENCES `submission` (`sub_num`),
   CONSTRAINT `sanswer_ibfk_2` FOREIGN KEY (`q_num`) REFERENCES `question` (`q_num`),
   CONSTRAINT `sanswer_ibfk_3` FOREIGN KEY (`s_num`) REFERENCES `survey` (`s_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.sanswer:~39 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `sanswer` DISABLE KEYS */;
@@ -331,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `spring_session` (
   UNIQUE KEY `SPRING_SESSION_IX1` (`SESSION_ID`),
   KEY `SPRING_SESSION_IX2` (`EXPIRY_TIME`),
   KEY `SPRING_SESSION_IX3` (`PRINCIPAL_NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.spring_session:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `spring_session` DISABLE KEYS */;
@@ -344,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `spring_session_attributes` (
   `ATTRIBUTE_BYTES` blob NOT NULL,
   PRIMARY KEY (`SESSION_PRIMARY_ID`,`ATTRIBUTE_NAME`),
   CONSTRAINT `SPRING_SESSION_ATTRIBUTES_FK` FOREIGN KEY (`SESSION_PRIMARY_ID`) REFERENCES `spring_session` (`PRIMARY_ID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.spring_session_attributes:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `spring_session_attributes` DISABLE KEYS */;
@@ -361,7 +360,7 @@ CREATE TABLE IF NOT EXISTS `submission` (
   PRIMARY KEY (`sub_num`),
   KEY `s_num` (`s_num`),
   CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`s_num`) REFERENCES `survey` (`s_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.submission:~7 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `submission` DISABLE KEYS */;
@@ -386,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `survey` (
   PRIMARY KEY (`s_num`),
   KEY `writer` (`writer`),
   CONSTRAINT `survey_ibfk_1` FOREIGN KEY (`writer`) REFERENCES `lc_user1` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.survey:~3 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `survey` DISABLE KEYS */;
@@ -411,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `test` (
   PRIMARY KEY (`b_idx`),
   KEY `u_idx` (`u_idx`),
   CONSTRAINT `test_ibfk_1` FOREIGN KEY (`u_idx`) REFERENCES `user` (`u_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.test:~26 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `test` DISABLE KEYS */;
@@ -459,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `test_reply` (
   KEY `b_idx` (`b_idx`),
   CONSTRAINT `test_reply_ibfk_1` FOREIGN KEY (`u_idx`) REFERENCES `user` (`u_idx`),
   CONSTRAINT `test_reply_ibfk_2` FOREIGN KEY (`b_idx`) REFERENCES `test` (`b_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.test_reply:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `test_reply` DISABLE KEYS */;
@@ -476,7 +475,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `manager` int(11) NOT NULL DEFAULT 0,
   `u_datetime` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`u_idx`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 jung.user:~19 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
@@ -507,7 +506,7 @@ CREATE TABLE IF NOT EXISTS `userauth` (
   `u_id` varchar(50) NOT NULL,
   `u_auth` varchar(50) NOT NULL,
   PRIMARY KEY (`u_id`,`u_auth`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- 테이블 데이터 jung.userauth:~6 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `userauth` DISABLE KEYS */;
@@ -533,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `userlist` (
   `u_isEnabled` tinyint(10) DEFAULT NULL,
   `u_auth` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`u_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- 테이블 데이터 jung.userlist:~4 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `userlist` DISABLE KEYS */;
@@ -552,17 +551,54 @@ CREATE TABLE IF NOT EXISTS `vue_board` (
   `writer` varchar(50) DEFAULT NULL,
   `datetime` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `hit` int(11) DEFAULT 0,
-  PRIMARY KEY (`b_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+  `groups` int(11) DEFAULT 0,
+  `orders` int(11) DEFAULT 0,
+  `depth` int(11) DEFAULT 0,
+  PRIMARY KEY (`b_id`),
+  KEY `writer` (`writer`),
+  CONSTRAINT `vue_board_ibfk_1` FOREIGN KEY (`writer`) REFERENCES `userlist` (`u_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 jung.vue_board:~2 rows (대략적) 내보내기
+-- 테이블 데이터 jung.vue_board:~11 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `vue_board` DISABLE KEYS */;
-INSERT INTO `vue_board` (`b_id`, `title`, `content`, `writer`, `datetime`, `hit`) VALUES
-	(8, 'asdas', 'asdasd', 'aa', '2022-01-12 11:36:14', 2),
-	(9, '마지막수정', '마지막수정ㅇㅇ', 'aa', '2022-01-12 11:36:09', 15);
+INSERT INTO `vue_board` (`b_id`, `title`, `content`, `writer`, `datetime`, `hit`, `groups`, `orders`, `depth`) VALUES
+	(15, '1', 'sdesd', 'zz', '2022-01-13 10:28:36', 0, 15, 1, 0),
+	(16, '2', 'wetfg', 'zz', '2022-01-13 10:29:38', 3, 16, 1, 0),
+	(17, '3', 'ewsrf', 'zz', '2022-01-13 10:28:45', 0, 17, 1, 0),
+	(18, '2-1', 'rseyghers', 'zz', '2022-01-13 10:30:09', 0, 16, 7, 1),
+	(19, '2-2', 'sertg', 'zz', '2022-01-13 10:30:09', 2, 16, 4, 1),
+	(20, '2-3', 'srfhrsrf', 'zz', '2022-01-13 10:38:45', 2, 16, 2, 1),
+	(21, '2-2/1', 'sdfgh', 'zz', '2022-01-13 10:38:48', 1, 16, 6, 2),
+	(22, '2-2/2', 'shyhjsj', 'zz', '2022-01-13 10:30:09', 0, 16, 5, 2),
+	(23, '2-3/1', 'sdeg', 'zz', '2022-01-13 10:30:09', 0, 16, 3, 2),
+	(24, 'new', 'sdfg', 'zz', '2022-01-13 12:11:43', 17, 24, 1, 0),
+	(25, 'n답', '', 'zz', '2022-01-13 10:35:53', 0, 24, 2, 1);
 /*!40000 ALTER TABLE `vue_board` ENABLE KEYS */;
 
+-- 테이블 jung.vue_comment 구조 내보내기
+CREATE TABLE IF NOT EXISTS `vue_comment` (
+  `c_id` int(11) NOT NULL AUTO_INCREMENT,
+  `bid` int(11) DEFAULT NULL,
+  `content` varchar(50) DEFAULT NULL,
+  `writer` varchar(50) DEFAULT NULL,
+  `datetime` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `groups` int(11) DEFAULT 0,
+  `orders` int(11) DEFAULT 0,
+  `depth` int(11) DEFAULT 0,
+  PRIMARY KEY (`c_id`),
+  KEY `bid` (`bid`),
+  KEY `writer` (`writer`),
+  CONSTRAINT `vue_comment_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `vue_board` (`b_id`),
+  CONSTRAINT `vue_comment_ibfk_2` FOREIGN KEY (`writer`) REFERENCES `userlist` (`u_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 jung.vue_comment:~2 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `vue_comment` DISABLE KEYS */;
+INSERT INTO `vue_comment` (`c_id`, `bid`, `content`, `writer`, `datetime`, `groups`, `orders`, `depth`) VALUES
+	(1, 15, 'ertt', 'zz', '2022-01-13 11:50:41', 0, 0, 0),
+	(2, 15, 'srfdgyh', 'zz', '2022-01-13 11:51:09', 0, 0, 0);
+/*!40000 ALTER TABLE `vue_comment` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

@@ -177,6 +177,32 @@ public class AuthController {
 		
 	}
 	
+	@PostMapping("/reply")
+	public ResponseEntity<?> writeReplyPost(HttpServletRequest request, @Validated @RequestBody PostRequest post ) {
+		
+		String token = new String();
+		token = request.getHeader("Authorization");
+		
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		UserInfo user = userService.readUser_refresh(username);
+		
+		Board board = new Board();
+		board.setTitle(post.getTitle());
+		board.setContent(post.getContent());
+		board.setWriter(user.getUsername());
+		board.setGroups(post.getGroups());
+		board.setOrders(post.getOrders());
+		board.setDepth(post.getDepth());
+		
+		boardService.insertReply(board);
+		
+		return new ResponseEntity<>("success", HttpStatus.OK);
+		
+	}
+	
 }
 
 

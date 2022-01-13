@@ -8,7 +8,9 @@ public class PostRequest {
 	private String writer;
 	private String datetime;
 	private String hit;
-	private String user;
+	private int groups;
+	private int orders;
+	private int depth;
 	
 	public String getTitle() {
 		return title;
@@ -47,17 +49,29 @@ public class PostRequest {
 	public void setHit(String hit) {
 		this.hit = hit;
 	}
-	public String getUser() {
-		return user;
+	public int getGroups() {
+		return groups;
 	}
-	public void setUser(String user) {
-		this.user = user;
+	public void setGroups(int groups) {
+		this.groups = groups;
+	}
+	public int getOrders() {
+		return orders;
+	}
+	public void setOrders(int orders) {
+		this.orders = orders;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 	@Override
 	public String toString() {
 		return "PostRequest [b_id=" + b_id + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", datetime=" + datetime + ", hit=" + hit + ", user=" + user + "]";
+				+ ", datetime=" + datetime + ", hit=" + hit + ", groups=" + groups + ", orders=" + orders + ", depth="
+				+ depth + "]";
 	}
-	
 	
 }

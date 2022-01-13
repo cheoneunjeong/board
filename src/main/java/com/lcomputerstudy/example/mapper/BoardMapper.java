@@ -10,7 +10,8 @@ import com.lcomputerstudy.example.request.PostRequest;
 @Mapper
 public interface BoardMapper {
 
-	void insertBoard(Board board);
+	void insertBoard1(Board board);
+	void insertBoard2(Board board);
 
 	List<Board> getBoardList();
 
@@ -21,5 +22,8 @@ public interface BoardMapper {
 	void deletePost(int b_id);
 
 	void editPost(Board setBoard);
+
+	void insertReply1(Board board);
+	void insertReply2(Board board);
 
 }

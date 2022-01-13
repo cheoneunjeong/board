@@ -18,4 +18,6 @@ public interface BoardService {
 	public void deletePost(int b_id);
 
 	public void editPost(Board setBoard);
+
+	public void insertReply(Board board);
 }

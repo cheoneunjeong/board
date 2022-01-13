@@ -8,6 +8,10 @@ public class Board {
 	private String writer;
 	private String datetime;
 	private String hit;
+	private int groups;
+	private int orders;
+	private int depth;
+	private String con;
 	
 	public int getB_id() {
 		return b_id;
@@ -45,5 +49,28 @@ public class Board {
 	public void setHit(String hit) {
 		this.hit = hit;
 	}
-
+	public int getGroups() {
+		return groups;
+	}
+	public void setGroups(int groups) {
+		this.groups = groups;
+	}
+	public int getOrders() {
+		return orders;
+	}
+	public void setOrders(int orders) {
+		this.orders = orders;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+	public String getCon() {
+		return con;
+	}
+	public void setCon(String con) {
+		this.con = con;
+	}
 }
