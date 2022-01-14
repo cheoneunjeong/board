@@ -1,5 +1,7 @@
 package com.lcomputerstudy.example.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PostRequest {
 	
 	private int b_id;
@@ -11,6 +13,8 @@ public class PostRequest {
 	private int groups;
 	private int orders;
 	private int depth;
+	private MultipartFile files;
+	private String filename;
 	
 	public String getTitle() {
 		return title;
@@ -67,11 +71,26 @@ public class PostRequest {
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
+	
+	public MultipartFile getFiles() {
+		return files;
+	}
+	public void setFiles(MultipartFile files) {
+		this.files = files;
+	}
+	
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 	@Override
 	public String toString() {
 		return "PostRequest [b_id=" + b_id + ", title=" + title + ", content=" + content + ", writer=" + writer
 				+ ", datetime=" + datetime + ", hit=" + hit + ", groups=" + groups + ", orders=" + orders + ", depth="
-				+ depth + "]";
+				+ depth + ", files=" + files + "]";
 	}
+	
 	
 }

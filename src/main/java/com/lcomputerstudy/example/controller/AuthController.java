@@ -1,10 +1,15 @@
 package com.lcomputerstudy.example.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +31,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lcomputerstudy.example.config.JwtUtils;
 import com.lcomputerstudy.example.domain.Board;
@@ -39,6 +46,8 @@ import com.lcomputerstudy.example.request.PostRequest;
 import com.lcomputerstudy.example.response.JwtResponse;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.UserService;
+
+
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -121,6 +130,26 @@ public class AuthController {
 		board.setWriter(user.getUsername());
 		
 		boardService.insertBoard(board);
+		
+		return new ResponseEntity<>("success", HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/file")
+	public ResponseEntity<?> fileupload(@RequestParam("file") MultipartFile multipartFile) {
+		
+		String path = "/Users/l4-morning/Documents/work10/board/src/main/resources/static/images";
+		String filename = multipartFile.getOriginalFilename();
+		
+		File file = new File(path+filename);
+		
+		try {
+			InputStream input = multipartFile.getInputStream();
+			FileUtils.copyInputStreamToFile(input, file);
+		} catch (IOException e) {
+			FileUtils.deleteQuietly(file);
+			e.printStackTrace();
+		}
 		
 		return new ResponseEntity<>("success", HttpStatus.OK);
 		
