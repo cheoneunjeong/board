@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -135,26 +136,71 @@ public class AuthController {
 		
 	}
 	
-	@PostMapping("/file")
-	public ResponseEntity<?> fileupload(@RequestParam("file") MultipartFile multipartFile) {
-		
-		String path = "/Users/l4-morning/Documents/work10/board/src/main/resources/static/images";
-		String filename = multipartFile.getOriginalFilename();
-		
-		File file = new File(path+filename);
-		
-		try {
-			InputStream input = multipartFile.getInputStream();
-			FileUtils.copyInputStreamToFile(input, file);
-		} catch (IOException e) {
-			FileUtils.deleteQuietly(file);
-			e.printStackTrace();
-		}
-		
-		return new ResponseEntity<>("success", HttpStatus.OK);
-		
-	}
+//	@PostMapping("/file")
+//	public ResponseEntity<?> fileupload(@RequestParam("file") List<MultipartFile> multipartFiles) {
+//		
+//		//String path = "/Users/l4-morning/Documents/work10/board/src/main/resources/static/images";
+//		String path = "/Users/jeong/eclipse-workspace/board/src/main/resources/static/images";
+//		StringBuilder builder = new StringBuilder();
+//		
+//		for(MultipartFile file : multipartFiles) {
+//			if(!file.isEmpty()) {
+//				String filename = file.getOriginalFilename();
+//				builder.append(filename);
+//				builder.append(",");
+//				
+//				File f = new File(path+filename);
+//				
+//				try {
+//					InputStream input = file.getInputStream();
+//					FileUtils.copyInputStreamToFile(input, f);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		if (builder.toString().contains(",")) {
+//			int p = builder.toString().lastIndexOf(",");
+//			builder.deleteCharAt(p);
+//			
+//			System.out.println(builder.toString());
+//		}
+//		
+//		return new ResponseEntity<>("success", HttpStatus.OK);
+//		
+//	}
 	
+	@RequestMapping(value="/file", method=RequestMethod.POST)
+	public ResponseEntity<?> fileupload(@RequestParam("file") List<MultipartFile> multipartFiles) {
+		String path = "/Users/jeong/eclipse-workspace/board/src/main/resources/static/images";
+		
+		StringBuilder builder = new StringBuilder();
+		
+		for(MultipartFile file : multipartFiles) {
+			if(!file.isEmpty()) {
+				String filename = file.getOriginalFilename();
+				builder.append(filename);
+				builder.append(",");
+				
+				File f = new File(path+filename);
+				
+				try {
+					InputStream input = file.getInputStream();
+					FileUtils.copyInputStreamToFile(input, f);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (builder.toString().contains(",")) {
+			int p = builder.toString().lastIndexOf(",");
+			builder.deleteCharAt(p);
+			
+			System.out.println(builder.toString());
+		}
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+
 	@DeleteMapping("/board")
 	public ResponseEntity<?> deleteBoardView(HttpServletRequest request, @Validated PostRequest post) {
 		
