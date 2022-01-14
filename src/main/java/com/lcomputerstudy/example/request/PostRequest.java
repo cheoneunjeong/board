@@ -1,5 +1,7 @@
 package com.lcomputerstudy.example.request;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class PostRequest {
@@ -13,7 +15,7 @@ public class PostRequest {
 	private int groups;
 	private int orders;
 	private int depth;
-	private MultipartFile files;
+	private List<MultipartFile> files;
 	private String filename;
 	
 	public String getTitle() {
@@ -70,15 +72,13 @@ public class PostRequest {
 	}
 	public void setDepth(int depth) {
 		this.depth = depth;
-	}
-	
-	public MultipartFile getFiles() {
+	}	
+	public List<MultipartFile> getFiles() {
 		return files;
 	}
-	public void setFiles(MultipartFile files) {
+	public void setFiles(List<MultipartFile> files) {
 		this.files = files;
 	}
-	
 	public String getFilename() {
 		return filename;
 	}

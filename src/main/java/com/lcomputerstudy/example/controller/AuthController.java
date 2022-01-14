@@ -171,7 +171,19 @@ public class AuthController {
 //	}
 	
 	@RequestMapping(value="/file", method=RequestMethod.POST)
-	public ResponseEntity<?> fileupload(@RequestParam("file") List<MultipartFile> multipartFiles) {
+	public ResponseEntity<?> fileupload(HttpServletRequest request,
+										@RequestParam("file") List<MultipartFile> multipartFiles,
+										@RequestParam("title") String title,
+										@RequestParam("content") String content) {
+		
+		String token = new String();
+		token = request.getHeader("Authorization");
+		
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		
 		String path = "/Users/jeong/eclipse-workspace/board/src/main/resources/static/images";
 		
 		StringBuilder builder = new StringBuilder();
@@ -196,7 +208,14 @@ public class AuthController {
 			int p = builder.toString().lastIndexOf(",");
 			builder.deleteCharAt(p);
 			
-			System.out.println(builder.toString());
+			Board board = new Board();
+			board.setTitle(title);
+			board.setContent(content);
+			board.setWriter(username);
+			board.setFilename(builder.toString());
+			
+			boardService.insertBoard(board);
+			
 		}
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
