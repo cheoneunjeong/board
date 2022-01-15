@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ import com.lcomputerstudy.example.domain.UserInfo;
 import com.lcomputerstudy.example.request.JoinRequest;
 import com.lcomputerstudy.example.request.LoginRequest;
 import com.lcomputerstudy.example.request.PostRequest;
+import com.lcomputerstudy.example.request.SelectedB_id;
 import com.lcomputerstudy.example.response.JwtResponse;
 import com.lcomputerstudy.example.service.BoardService;
 import com.lcomputerstudy.example.service.UserService;
@@ -139,41 +141,7 @@ public class AuthController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 		
 	}
-	
-//	@PostMapping("/file")
-//	public ResponseEntity<?> fileupload(@RequestParam("file") List<MultipartFile> multipartFiles) {
-//		
-//		//String path = "/Users/l4-morning/Documents/work10/board/src/main/resources/static/images";
-//		String path = "/Users/jeong/eclipse-workspace/board/src/main/resources/static/images";
-//		StringBuilder builder = new StringBuilder();
-//		
-//		for(MultipartFile file : multipartFiles) {
-//			if(!file.isEmpty()) {
-//				String filename = file.getOriginalFilename();
-//				builder.append(filename);
-//				builder.append(",");
-//				
-//				File f = new File(path+filename);
-//				
-//				try {
-//					InputStream input = file.getInputStream();
-//					FileUtils.copyInputStreamToFile(input, f);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		if (builder.toString().contains(",")) {
-//			int p = builder.toString().lastIndexOf(",");
-//			builder.deleteCharAt(p);
-//			
-//			System.out.println(builder.toString());
-//		}
-//		
-//		return new ResponseEntity<>("success", HttpStatus.OK);
-//		
-//	}
-	
+
 	@RequestMapping(value="/file", method=RequestMethod.POST)
 	public ResponseEntity<?> fileupload(HttpServletRequest request,
 										@RequestParam("file") List<MultipartFile> multipartFiles,
@@ -373,6 +341,24 @@ public class AuthController {
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 		
+	}
+	
+	@PutMapping("/selected-post")
+	public ResponseEntity<?> DeleteSelectedPost(HttpServletRequest request, @Validated @RequestBody SelectedB_id id) {
+		
+		if(request.isUserInRole("ROLE_ADMIN") ) {
+			
+			for(int p: id.getB_id()) {
+				boardService.deleteBoardComments(p);
+				boardService.deletePost(p);
+			}
+			List<Board> list = boardService.getBoardList();
+			
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		
+		} else
+
+			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
 	}
 	
 }
