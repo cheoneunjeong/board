@@ -1,5 +1,7 @@
 package com.lcomputerstudy.example.domain;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class Board {
@@ -14,8 +16,8 @@ public class Board {
 	private int orders;
 	private int depth;
 	private String con;
-	private MultipartFile files;
 	private String filename;
+	private String[] files;
 	
 	public int getB_id() {
 		return b_id;
@@ -77,10 +79,12 @@ public class Board {
 	public void setCon(String con) {
 		this.con = con;
 	}
-	public MultipartFile getFiles() {
+
+
+	public String[] getFiles() {
 		return files;
 	}
-	public void setFiles(MultipartFile files) {
+	public void setFiles(String[] files) {
 		this.files = files;
 	}
 	public String getFilename() {

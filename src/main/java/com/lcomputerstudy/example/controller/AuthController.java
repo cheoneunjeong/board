@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -71,6 +72,9 @@ public class AuthController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	ServletContext context;
 	
 	
 	@PostMapping("/addRole")
@@ -184,7 +188,8 @@ public class AuthController {
 		}
 		String username = jwtUtils.getUserEmailFromToken(token);
 		
-		String path = "/Users/jeong/eclipse-workspace/board/src/main/resources/static/images";
+		//String path = "/Users/jeong/eclipse-workspace/board/src/main/resources/static/images/";
+		String path = "/Users/82106/boardVue/src/assets/";
 		
 		StringBuilder builder = new StringBuilder();
 		

@@ -1,6 +1,7 @@
 package com.lcomputerstudy.example.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -125,7 +126,6 @@ public class PublicController {
 		List<String> roles= userService.getAuthorities(username).stream()
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-		System.out.println("리스트: "+roles.toString());
 
 		return ResponseEntity.ok(new JwtResponse(request.getHeader("Authorization"), 
 															user.getUsername(),
@@ -146,6 +146,20 @@ public class PublicController {
 
 		boardService.addHit(post.getB_id());
 		Board board = boardService.getBoardDetail(post.getB_id());
+	
+		String filenames = board.getFilename();
+		if (filenames != null) {
+			if (filenames.contains(",")) {
+				board.setFiles(filenames.split(","));
+				System.out.println("filenames: "+board.getFiles().toString());
+			}else {
+				List<String> list = new ArrayList<String>();
+				list.add(filenames);
+				board.setFiles(list.toArray(new String[0]));
+			}
+		}else
+			board.setFiles(null);
+		
 		
 			return new ResponseEntity<>(board, HttpStatus.OK);
 	}
