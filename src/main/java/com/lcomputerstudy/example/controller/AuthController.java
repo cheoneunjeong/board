@@ -361,6 +361,65 @@ public class AuthController {
 			return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
 	}
 	
+	@RequestMapping(value="/file", method=RequestMethod.PUT)
+	public ResponseEntity<?> editFilePost(HttpServletRequest request,
+										@RequestParam("file") List<MultipartFile> multipartFiles,
+										@RequestParam("title") String title,
+										@RequestParam("content") String content,
+										@RequestParam("b_id") int b_id) {
+		
+		String token= request.getHeader("Authorization");
+		if(StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+			token = token.substring(7, token.length());
+		}
+		String username = jwtUtils.getUserEmailFromToken(token);
+		Board board = boardService.getBoardDetail(b_id);
+		
+		if(board.getWriter().equals(username)) {
+			
+				
+				String path = "/Users/82106/boardVue/src/assets/";
+				
+				StringBuilder builder = new StringBuilder();
+				
+				for(MultipartFile file : multipartFiles) {
+					if(!file.isEmpty()) {
+						String filename = file.getOriginalFilename();
+						builder.append(filename);
+						builder.append(",");
+						
+						File f = new File(path+filename);
+						
+						try {
+							InputStream input = file.getInputStream();
+							FileUtils.copyInputStreamToFile(input, f);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+				if (builder.toString().contains(",")) {
+					int p = builder.toString().lastIndexOf(",");
+					builder.deleteCharAt(p);
+				}
+					
+					Board setBoard = new Board();
+					setBoard.setTitle(title);
+					setBoard.setContent(content);
+					setBoard.setB_id(b_id);
+					setBoard.setFilename(builder.toString());
+				
+				
+				boardService.editPost(setBoard);
+				
+				return new ResponseEntity<>("success", HttpStatus.OK);
+			
+			} else
+			
+				return new ResponseEntity<>("fail", HttpStatus.FORBIDDEN);
+	
+	}
+	
 }
 
 

@@ -59,7 +59,8 @@
  	<update id="editPost" parameterType="Board">
 		UPDATE 		vue_board 
 		SET 		title = #{title},
-					content = #{content}
+					content = #{content},
+					filename = #{filename}
 					
 		WHERE 		b_id= #{b_id}
 	</update> 
