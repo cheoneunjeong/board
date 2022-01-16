@@ -573,15 +573,19 @@ CREATE TABLE IF NOT EXISTS `vue_board` (
   `groups` int(11) DEFAULT 0,
   `orders` int(11) DEFAULT 0,
   `depth` int(11) DEFAULT 0,
-  `filename` varchar(50) DEFAULT NULL,
+  `filename` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`b_id`),
   KEY `writer` (`writer`),
   CONSTRAINT `vue_board_ibfk_1` FOREIGN KEY (`writer`) REFERENCES `userlist` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb3;
 
--- 테이블 데이터 jung.vue_board:~0 rows (대략적) 내보내기
+-- 테이블 데이터 jung.vue_board:~3 rows (대략적) 내보내기
 DELETE FROM `vue_board`;
 /*!40000 ALTER TABLE `vue_board` DISABLE KEYS */;
+INSERT INTO `vue_board` (`b_id`, `title`, `content`, `writer`, `datetime`, `hit`, `groups`, `orders`, `depth`, `filename`) VALUES
+	(61, '핑크나무', '내용입니당', 'aa', '2022-01-16 19:17:56', 3, 61, 1, 0, 'dd.jpg'),
+	(62, '풍경사진', '나무입니당', 'aa', '2022-01-16 19:17:53', 4, 62, 1, 0, 'jj.jpg'),
+	(63, '가을', '가을사진', 'aa', '2022-01-16 19:17:43', 8, 63, 1, 0, '가을.jpg,nature-autumn-mountains.jpg');
 /*!40000 ALTER TABLE `vue_board` ENABLE KEYS */;
 
 -- 테이블 jung.vue_comment 구조 내보내기
