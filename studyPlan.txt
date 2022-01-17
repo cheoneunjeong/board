@@ -1,9 +1,5 @@
 **진도 
-	페이지네이션?
-	댓글기능
-	대댓글 기능추가
-	댓글순서정렬
-	파일업로드?
+	설문조사 만들기
 
 *질문할거List
        restful api라는게 프론트단에서 서버로 요청할때 쓰이는 uri에 규칙을 준수해서 쓴거?
@@ -14,6 +10,7 @@
 	logger, logback-spring.xml
 	securty강의
 	serialVersionUID
+	Map Hashmap 좀 더 공부
 
 
 restful?
