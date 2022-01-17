@@ -157,7 +157,7 @@ public class AuthController {
 		String username = jwtUtils.getUserEmailFromToken(token);
 		
 		//String path = "/Users/jeong/eclipse-workspace/board/src/main/resources/static/images/";
-		String path = "/Users/82106/boardVue/src/assets/";
+		String path = System.getProperty("user.home")+"/boardVue/src/assets/";
 		
 		StringBuilder builder = new StringBuilder();
 		
@@ -378,7 +378,7 @@ public class AuthController {
 		if(board.getWriter().equals(username)) {
 			
 				
-				String path = "/Users/82106/boardVue/src/assets/";
+			String path = System.getProperty("user.home")+"/boardVue/src/assets/";
 				
 				StringBuilder builder = new StringBuilder();
 				
